@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:grocery_app/components/custom_text.dart';
+import 'package:grocery_app/screens/main/home/home.dart';
 import 'package:grocery_app/utils/constants/app_colors.dart';
 import 'package:grocery_app/utils/constants/assets_constants.dart';
 
@@ -12,10 +12,22 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  //-- store the active index
+  int activeIndex = 0;
+
+  //--trigger when bottomnav bar item clicked
+
+
+  void onItemTapped(int val){
+     setState(() {
+                  activeIndex = val;
+                });
+
+  }
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      body: const Center(child: CustomText("Home")),
+      body:  const Home(), 
       bottomNavigationBar: SizedBox(
         height:83,
        // color:AppColors.primaryColor,
@@ -24,23 +36,25 @@ class _MainScreenState extends State<MainScreen> {
           children: [
             BottomNavTile(
               icon: AssetConstants.homeicon,
-              isActive: true,
-              onTap:() {}, 
+              isActive: activeIndex == 0,
+              onTap:() => onItemTapped(0),
               ),
             BottomNavTile(
               icon: AssetConstants.favicon,
-              isActive: false,
-              onTap:() {}, 
+              isActive: activeIndex == 1,
+              onTap:() => onItemTapped(1),
               ),
             BottomNavTile(
               icon: AssetConstants.searchicon,
-              isActive: false,
-              onTap:() {}, 
+              isActive: activeIndex == 2,
+              onTap:() => onItemTapped(3), 
               ),
               BottomNavTile(
               icon: AssetConstants.profileicon,
-              isActive: false,
-              onTap:() {}, 
+              isActive: activeIndex == 3,
+              onTap:() {
+                activeIndex = 3;
+              }, 
               ),
           ],
         ),
